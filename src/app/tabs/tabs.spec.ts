@@ -28,6 +28,7 @@ describe("TabsComponent", () => {
 
 it("should create the tabs component", () => {
         expect(component).toBeDefined();
+})
 
     it("should render correct name of tab buttons", () => {
         const buttons = de.queryAll(By.css(".tab-link"));
@@ -36,5 +37,29 @@ it("should create the tabs component", () => {
         expect(buttons[1].nativeElement.textContent.trim()).toBe("Advanced");
 
     })
-});
+
+    
+    it("should apply the active class to the select tab", () => {
+        fixture.componentRef.setInput("activeTab", "advanced");
+        fixture.detectChanges();
+        const button = de.query(By.css(".tab-link:last-child"));
+        expect(button.nativeElement.classList).toContain("active");
+    })
+
+    it("should emit activeTab when a tab is clicked", () => {
+        const button = de.query(By.css(".tab-link:last-child"));
+        button.nativeElement.click();
+        fixture.detectChanges();
+        expect(component.activeTab()).toBe("advanced");
+    })
+
+    it("should emit tabChanged when a tab is clicked", () => {
+        const emitSpy = vi.spyOn(component.tabChanged, "emit");
+        const button = de.query(By.css(".tab-link:last-child"));
+        button.nativeElement.click();
+        fixture.detectChanges();
+        expect(emitSpy).toHaveBeenCalledWith("advanced");
+        expect(emitSpy).toHaveBeenCalledOnce();
+    })
+
 
