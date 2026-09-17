@@ -18,12 +18,12 @@ describe("TabsComponent", () => {
         await TestBed.configureTestingModule({
             imports: [TabsComponent]
         }).compileComponents();
+        fixture = TestBed.createComponent(TabsComponent);
         component = fixture.componentInstance;
-        de = fixture,DebugElement;
+        de = fixture.debugElement;
         fixture.componentRef.setInput("tabs", mockTabs);
         fixture.detectChanges();
     })
-})
 
 
 it("should create the tabs component", () => {
@@ -62,4 +62,4 @@ it("should create the tabs component", () => {
         expect(emitSpy).toHaveBeenCalledOnce();
     })
 
-
+})
